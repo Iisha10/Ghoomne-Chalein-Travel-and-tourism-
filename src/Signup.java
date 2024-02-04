@@ -2,8 +2,12 @@ import javafx.scene.layout.Border;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
-public class Signup extends JFrame {
+public class Signup extends JFrame implements ActionListener {
+    JButton create, back;
+    JTextField tfusername, tfpswd, tfname, tfans;
+    Choice secure;
     Signup() {
         // setBounds is the combination of setSize and setLocation
         setBounds(350, 200, 900, 360);
@@ -22,7 +26,7 @@ public class Signup extends JFrame {
         username.setBounds(50, 20, 125, 25);
         p1.add(username);
 
-        JTextField tfusername = new JTextField();
+         tfusername = new JTextField();
         tfusername.setBounds(170, 20, 200, 25);
         tfusername.setBorder(BorderFactory.createEmptyBorder());
         p1.add(tfusername);
@@ -32,7 +36,7 @@ public class Signup extends JFrame {
         name.setBounds(50, 60, 125, 25);
         p1.add(name);
 
-        JTextField tfname = new JTextField();
+         tfname = new JTextField();
         tfname.setBounds(170, 60, 200, 25);
         tfname.setBorder(BorderFactory.createEmptyBorder());
         p1.add(tfname);
@@ -42,7 +46,7 @@ public class Signup extends JFrame {
         pswd.setBounds(50, 100, 125, 25);
         p1.add(pswd);
 
-        JTextField tfpswd = new JTextField();
+        tfpswd = new JTextField();
         tfpswd.setBounds(170, 100, 200, 25);
         tfpswd.setBorder(BorderFactory.createEmptyBorder());
         p1.add(tfpswd);
@@ -52,7 +56,7 @@ public class Signup extends JFrame {
         security.setBounds(50, 140, 125, 25);
         p1.add(security);
 
-        Choice secure=new Choice();//Choice is a class to provide us labels
+        secure=new Choice();//Choice is a class to provide us labels
         secure.add("Dog's Name");
         secure.add("Favorite singer");
         secure.add("Favorite Car");
@@ -65,23 +69,25 @@ public class Signup extends JFrame {
         ans.setBounds(50, 180, 125, 25);
         p1.add(ans);
 
-        JTextField tfans=new JTextField();
+         tfans=new JTextField();
         tfans.setBounds(170, 180, 205, 25);
         tfans.setBorder(BorderFactory.createEmptyBorder());
         p1.add(tfans);
 
-        JButton create=new JButton("Create");
+         create=new JButton("Create");
         create.setBackground(Color.LIGHT_GRAY);
         create.setForeground(Color.black);
         create.setFont(new Font("Tahoma", Font.BOLD, 14));
         create.setBounds(80, 250, 100,30);
+        create.addActionListener(this);
         p1.add(create);
 
-        JButton back=new JButton("Back");
+        back=new JButton("Back");
         back.setBackground(Color.LIGHT_GRAY);
         back.setForeground(Color.black);
         back.setFont(new Font("Tahoma", Font.BOLD, 14));
         back.setBounds(250, 250, 100,30);
+        back.addActionListener(this);
         p1.add(back);
 
         ImageIcon i1=new ImageIcon(ClassLoader.getSystemResource("icons travel/icons/signup.png"));
@@ -94,6 +100,32 @@ public class Signup extends JFrame {
 
         p1.requestFocusInWindow();
         setVisible(true);
+    }
+    public void actionPerformed(ActionEvent ac)
+    {
+        if(ac.getSource()==create)
+        {
+            String username= tfusername.getText();
+            String name= tfname.getText();
+            String pswd=tfpswd.getText();
+            String ques= secure.getSelectedItem();
+            String answer=tfans.getText();
+
+            String query = "insert into account values ('" + username + "', '" + name + "', '" + pswd + "', '" + ques + "', '" + answer + "')";
+
+            try{
+                Connectitvity c=new Connectitvity();
+                c.s.executeUpdate(query);
+                JOptionPane.showMessageDialog(null, "Account Created");
+                setVisible(false);
+                new Login();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }else if(ac.getSource()==back){
+            setVisible(false);
+            new Login();
+        }
     }
 
     public static void main(String[] args) {
