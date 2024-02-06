@@ -1,8 +1,11 @@
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Login extends JFrame{
+public class Login extends JFrame implements ActionListener {
+        JButton login,signup, forgetps;
     Login(){
             setSize(900, 400);
             setLocation(350, 200);
@@ -42,25 +45,28 @@ public class Login extends JFrame{
             p2.add(tfpassword);
             add(p2);
 
-            JButton login=new JButton("Login");
+             login=new JButton("Login");
             login.setBounds(60, 170, 100, 30);
             login.setBackground(Color.LIGHT_GRAY);
             login.setForeground(Color.WHITE);
             login.setBorder(new LineBorder(Color.LIGHT_GRAY));
+            login.addActionListener(this);
             p2.add(login);
 
-            JButton signup=new JButton("Signup");
+             signup=new JButton("Signup");
             signup.setBounds(200, 170, 100, 30);
             signup.setBackground(Color.LIGHT_GRAY);
             signup.setForeground(Color.WHITE);
             signup.setBorder(new LineBorder(Color.LIGHT_GRAY));
+            signup.addActionListener(this);
             p2.add(signup);
 
-            JButton forgetps=new JButton("Forget Password");
+             forgetps=new JButton("Forget Password");
             forgetps.setBackground(Color.LIGHT_GRAY);
             forgetps.setBounds(130, 220, 110, 30);
             forgetps.setForeground(Color.WHITE);
             forgetps.setBorder(new LineBorder(Color.LIGHT_GRAY));
+            forgetps.addActionListener(this);
             p2.add(forgetps);
 
             JLabel text=new JLabel("Trouble logging in...");
@@ -81,6 +87,24 @@ public class Login extends JFrame{
 
             setVisible(true);
     }
+    public void actionPerformed(ActionEvent ae) {
+            if (ae.getSource() == login) {
+
+
+            }
+            else if (ae.getSource() == signup) {
+                    setVisible(false);
+                    new Signup();
+
+            }
+            else
+            {
+                setVisible(false);
+                new ForgetPswd();
+            }
+    }
+
+
     public static void main(String[] args)
     {
         new Login();
