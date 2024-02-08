@@ -3,7 +3,7 @@ import javafx.scene.layout.Border;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-
+import java.sql.*;
 public class Signup extends JFrame implements ActionListener {
     JButton create, back;
     JTextField tfusername, tfpswd, tfname, tfans;
@@ -111,11 +111,17 @@ public class Signup extends JFrame implements ActionListener {
             String ques= secure.getSelectedItem();
             String answer=tfans.getText();
 
-            String query = "insert into account values ('" + username + "', '" + name + "', '" + pswd + "', '" + ques + "', '" + answer + "')";
-
+            String query = "INSERT INTO account (username, name, password, security, answer) VALUES (?, ?, ?, ?, ?)";
             try{
                 Connectitvity c=new Connectitvity();
-                c.s.executeUpdate(query);
+                PreparedStatement preparedStatement = c.conn.prepareStatement(query);
+                preparedStatement.setString(1, username);
+                preparedStatement.setString(2, name);
+                preparedStatement.setString(3, pswd);
+                preparedStatement.setString(4, ques);
+                preparedStatement.setString(5, answer);
+
+                preparedStatement.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Account Created");
                 setVisible(false);
                 new Login();
