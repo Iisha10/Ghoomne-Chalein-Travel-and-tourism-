@@ -5,6 +5,7 @@ import java.awt.*;
 public class Loading extends JFrame implements Runnable{
     Thread T;
     JProgressBar bar;
+    String username;
     public void run()
     {
         try{
@@ -19,6 +20,7 @@ public class Loading extends JFrame implements Runnable{
                 else
                 {
                     setVisible(false);
+                   new Dashboard(username);
 
                 }
                 Thread.sleep(50);
@@ -29,7 +31,8 @@ public class Loading extends JFrame implements Runnable{
             e.printStackTrace();
         }
     }
-    Loading(){
+    Loading(String username){
+        this.username=username;
         T=new Thread(this);
         setBounds(500, 200, 680, 400 );
         getContentPane().setBackground(Color.WHITE);
@@ -52,7 +55,7 @@ public class Loading extends JFrame implements Runnable{
         loading.setFont(new Font("Raleway", Font.BOLD, 18));
         add(loading);
 
-        JLabel welcome=new JLabel("Welcome...");
+        JLabel welcome=new JLabel("Welcome "+username);
         welcome.setBounds(90, 310, 100, 20);
         welcome.setForeground(Color.BLACK);
         welcome.setFont(new Font("Raleway", Font.BOLD, 18));
@@ -65,6 +68,6 @@ public class Loading extends JFrame implements Runnable{
 
     public static void main(String[] args)
     {
-        new Loading();
+        new Loading("");
     }
 }
