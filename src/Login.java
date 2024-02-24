@@ -3,9 +3,11 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.sql.ResultSet;
+import java.sql.*;
 public class Login extends JFrame implements ActionListener {
         JButton login,signup, forgetps;
+        JTextField tfusername, tfpassword;
     Login(){
             setSize(900, 400);
             setLocation(350, 200);
@@ -29,7 +31,8 @@ public class Login extends JFrame implements ActionListener {
             username.setBounds(60, 20, 100, 25);
             username.setFont(new Font("SAN_SARIF", Font.PLAIN, 20));
             p2.add(username);
-            JTextField tfusername =new JTextField();
+
+          tfusername =new JTextField();
             tfusername.setBounds(60, 50, 300, 30);
             tfusername.setBorder(BorderFactory.createEmptyBorder());
             p2.add(tfusername);
@@ -39,7 +42,8 @@ public class Login extends JFrame implements ActionListener {
             password.setBounds(60, 90, 100, 25);
             password.setFont(new Font("SAN_SARIF", Font.PLAIN, 20));
             p2.add(password);
-            JTextField tfpassword =new JTextField();
+
+             tfpassword =new JTextField();
             tfpassword.setBounds(60, 120 , 300, 30);
             tfpassword.setBorder(BorderFactory.createEmptyBorder());
             p2.add(tfpassword);
@@ -89,7 +93,24 @@ public class Login extends JFrame implements ActionListener {
     }
     public void actionPerformed(ActionEvent ae) {
             if (ae.getSource() == login) {
-
+                     try{
+                             String username=tfusername.getText();
+                             String password= tfpassword.getText();
+                             String query= "select * from account where username= '"+username+"' AND password ='"+password+"'";
+                             Connectitvity c=new Connectitvity();
+                             ResultSet rs=c.s.executeQuery(query);
+                             if(rs.next())
+                             {
+                                     setVisible(false);
+                                     new Loading(username);
+                             }
+                             else{
+                                     JOptionPane.showMessageDialog(null, "Incorrect username or password");
+                             }
+                     }catch (Exception e)
+                     {
+                             e.printStackTrace();
+                     }
 
             }
             else if (ae.getSource() == signup) {

@@ -1,12 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
 
+import java.awt.event.*;
+public class Dashboard extends JFrame implements  ActionListener{
 
-public class Dashboard extends JFrame{
+    JButton addpdetails, updatepdetails,  viewdetails, deldetails,checkpackage, bookpackage, viewpackage, viewhotels;
+    String username;
 
-
-    Dashboard()
+    Dashboard(String username)
     {
+        this.username=username;
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLayout(null);
 
@@ -33,15 +36,16 @@ public class Dashboard extends JFrame{
 
 
 
-        JButton addpdetails=new JButton("Add personal details");
+        addpdetails=new JButton("Add personal details");
         addpdetails.setBounds(0,0, 300, 50);
         addpdetails.setBackground(new Color(0,0,102));
         addpdetails.setFont(new Font("Tahoma", Font.PLAIN, 20));
         addpdetails.setMargin(new Insets(0, 0, 0, 60));
         addpdetails.setForeground(Color.WHITE);
+        addpdetails.addActionListener(this);
         p2.add(addpdetails);
 
-        JButton updatepdetails=new JButton("Update details");
+         updatepdetails=new JButton("Update details");
         updatepdetails.setBounds(0,50, 300, 50);
         updatepdetails.setBackground(new Color(0,0,102));
         updatepdetails.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -49,7 +53,7 @@ public class Dashboard extends JFrame{
         updatepdetails.setForeground(Color.WHITE);
         p2.add(updatepdetails);
 
-        JButton viewdetails=new JButton("View details");
+        viewdetails=new JButton("View details");
         viewdetails.setBounds(0,100, 300, 50);
         viewdetails.setBackground(new Color(0,0,102));
         viewdetails.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -57,7 +61,7 @@ public class Dashboard extends JFrame{
         viewdetails.setForeground(Color.WHITE);
         p2.add(viewdetails);
 
-        JButton deldetails=new JButton("Delete details");
+       deldetails=new JButton("Delete details");
         deldetails.setBounds(0,150, 300, 50);
         deldetails.setBackground(new Color(0,0,102));
         deldetails.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -65,7 +69,7 @@ public class Dashboard extends JFrame{
         deldetails.setForeground(Color.WHITE);
         p2.add(deldetails);
 
-        JButton checkpackage=new JButton("Check package details");
+        checkpackage=new JButton("Check package details");
         checkpackage.setBounds(0,200, 300, 50);
         checkpackage.setBackground(new Color(0,0,102));
         checkpackage.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -73,7 +77,7 @@ public class Dashboard extends JFrame{
         checkpackage.setForeground(Color.WHITE);
         p2.add(checkpackage);
 
-        JButton bookpackage=new JButton("Book package ");
+        bookpackage=new JButton("Book package ");
         bookpackage.setBounds(0,250, 300, 50);
         bookpackage.setBackground(new Color(0,0,102));
         bookpackage.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -81,7 +85,7 @@ public class Dashboard extends JFrame{
         bookpackage.setForeground(Color.WHITE);
         p2.add(bookpackage);
 
-        JButton viewpackage=new JButton("View package ");
+        viewpackage=new JButton("View package ");
         viewpackage.setBounds(0,300, 300, 50);
         viewpackage.setBackground(new Color(0,0,102));
         viewpackage.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -89,7 +93,7 @@ public class Dashboard extends JFrame{
         viewpackage.setForeground(Color.WHITE);
         p2.add(viewpackage);
 
-        JButton viewhotels=new JButton("View Hotels");
+         viewhotels=new JButton("View Hotels");
         viewhotels.setBounds(0,350, 300, 50);
         viewhotels.setBackground(new Color(0,0,102));
         viewhotels.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -177,10 +181,16 @@ public class Dashboard extends JFrame{
 
         setVisible(true);
     }
-
+public void actionPerformed(ActionEvent ae)
+{
+    if(ae.getSource()==addpdetails)
+    {
+        new AddCustomer(username);
+    }
+}
 
     public static void main(String[] args)
     {
-        new Dashboard();
+        new Dashboard("");
     }
 }
